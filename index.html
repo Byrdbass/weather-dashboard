@@ -36,59 +36,67 @@
         </div>
       </div>
     </div>
+    <!-- LIST OF CITIES -->
+<ul class="collection">
+  <li class="collection-item avatar">
+    <ul><span class="title cityList"></span></ul>
+  </li>
+</ul>
     
     <!-- CARD FOR SEARCHING -->
-    <div class="row right-align">
+    <div id='currentWeatherCard' class="row right-align hide">
       <div class="col s12 m8">
         <div class="card blue-grey darken-1">
+          <div id="icon"></div>
           <div class="card-content white-text">
             <span id="cityTitleCard" class="card-title"></span>
             <p id="date"></p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-            <a href="#">This is a link</a>
+            <p id="temp"></p>
+            <!-- MUST POPULATE THE HUMIDITY FOR CURRENT WEATHER -->
+            <p id ="humidity"></p>
+            <p id="windSpeed"></p>
+            <p id="uvi"></p>
+            
           </div>
         </div>
       </div>
     </div>
+    <div class='row'>
+      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+        <span id="cityTitleCard" class="card-title"></span>
+        <p id="date1"></p>
+        <p id="temp1"></p>
+        <p id ="humidity1"></p>
+        <p id="windSpeed1"></p>
+        <p id="uvi1"></p>
+      </div>
+      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+        <span id="cityTitleCard" class="card-title"></span>
+        <p id="date2"></p>
+        <p id="temp2"></p>
+        <p id ="humidity2"></p>
+        <p id="windSpeed2"></p>
+        <p id="uvi2"></p>
+      </div>
+      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+        <span id="cityTitleCard" class="card-title"></span>
+        <p id="date3"></p>
+        <p id="temp3"></p>
+        <p id ="humidity3"></p>
+        <p id="windSpeed3"></p>
+        <p id="uvi3"></p>
+      </div>
+      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+        <span id="cityTitleCard" class="card-title"></span>
+        <p id="date4"></p>
+        <p id="temp4"></p>
+        <p id ="humidity4"></p>
+        <p id="windSpeed4"></p>
+        <p id="uvi4"></p>
+      </div>
+    </div>
 
-<!-- LIST OF CITIES -->
 
-<ul class="collection">
-  <li class="collection-item avatar">
-    <img src="#!" alt="" class="circle">
-    <ul><span class="title cityList"></span></ul>
-    <p>First Line <br>
-       Second Line
-    </p>
-    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-  </li>
-  <li class="collection-item avatar">
-    <i class="material-icons circle">folder</i>
-    <span class="title">Title</span>
-    <p>First Line <br>
-       Second Line
-    </p>
-    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-  </li>
-  <li class="collection-item avatar">
-    <i class="material-icons circle green">insert_chart</i>
-    <span class="title">Title</span>
-    <p>First Line <br>
-       Second Line
-    </p>
-    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-  </li>
-  <li class="collection-item avatar">
-    <i class="material-icons circle red">play_arrow</i>
-    <span class="title">Title</span>
-    <p>First Line <br>
-       Second Line
-    </p>
-    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-  </li>
-</ul>
     <!-- Linking Moment.js for date display -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- MATERIALIZE-STYLE JS -->

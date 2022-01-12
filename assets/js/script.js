@@ -3,13 +3,14 @@ apiKey = '79ae4c44176953beec1155138bc60d35'
 var cityName = '';
 var latitude = '';
 var longitude = '';
+var recentSearches = [];
 //var requestUrl = "api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=79ae4c44176953beec1155138bc60d35";
 
 // redirectUrl = 
 
 //RUNS THE WHOLE SHABANG
 function getCityWeather() {
-    var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + apiKey
+    var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + apiKey
     
     //FETCHING THE WEATHER BASED OFF CITY NAME
     fetch(url)
@@ -20,14 +21,23 @@ function getCityWeather() {
             })
             .then(function (data) {
                 console.log("hello this is the data function");
-                //cityName = "austin";
-                console.log(data);
-                
+                console.log("this is current weather", data);
+
+                var icon = data.weather[0].icon;
+                var iconImg = $('<img>');
+                $('#icon').addClass("card.small left")
+                iconImg.attr('src', 'https://openweathermap.org/img/wn/' + icon + '@4x.png')
+                $('#icon').append(iconImg)
+
+                var temp = data.main.temp
+                $('#temp').text(temp + " degrees")
+                var windSpeed = data.wind.speed
+                $('#windSpeed').text(windSpeed + " is the Wind Speed")
                 console.log(data.name);
                 latitude = data.coord.lat;
                 longitude = data.coord.lon;
                 console.log("the latitude is " + latitude, "the longitude is " + longitude);
-                
+                getForecastUvi(latitude, longitude);
                 $('#date').text(moment().format('dddd, MM/DD/YYYY'))
                 //add the date for the next five days?  using moment or weather API?
                 //save the cityName to local storage 
@@ -35,21 +45,55 @@ function getCityWeather() {
                 //pass the coordinates to other url call for Lat and lon??
             });
         };
+function getForecastUvi (lat,lon) {
+    var urlOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&appid=' + apiKey
+
+    fetch(urlOneCall)
+        .then(function (response) {
+            return response.json(); 
+        })
+        .then(function (data) {
+            console.log("this is the oneCall Api ", data)
+            var uvi = data.current.uvi
+            $('#uvi').text(uvi + " UVI index")
+            
+            for (i=1; i<5; i++) {
+                console.log("this is the forecast ", data.daily[i])
+                var formatDate = moment.unix(data.daily[i].dt).format('dddd, MM/DD/YYYY')
+                $('#date' + i).text(formatDate);
+                var uviForecast = data.daily[i].uvi;
+                $('#uvi' + i).text(uviForecast + " UVI index");
+                var humidityForecast = data.daily[i].humidity
+                $('#humidity' + i).text(humidityForecast + "% humidity")
+                var windSpeedForecast = data.daily[i].wind_speed;
+                $('#windSpeed' + i).text(windSpeedForecast + " Wind Speed")
+            //var forecast = [];
+            }
+        })
+}
 
        
 function cityListPopulate () {
     cityName = $('#autocomplete-input').val().trim();
     console.log('hello this is the cityListPopulate function');
     console.log("the city name is " + cityName);
+    var listItem = $('<li>')
     var cityListButtons = $('<button>');
     $('#cityTitleCard').text(cityName);
+    if (recentSearches.indexOf(cityName) === -1) {
     cityListButtons.addClass('title')
     cityListButtons.text(cityName);
-    $("ul").append(cityListButtons);
+    listItem.append(cityListButtons);
+    $("ul").append(listItem);
+    recentSearches.push(cityName);
+    }
+    
    // $("#autocomplete-input").val("");
 }
 
 $('#city-form').submit(function (event) {
+    $('#currentWeatherCard').removeClass('hide');
+    $('.card').removeClass('hide');
     event.preventDefault();
     console.log('hello this is the submit button function');
     cityListPopulate();
