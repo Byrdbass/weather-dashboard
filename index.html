@@ -37,16 +37,17 @@
       </div>
     </div>
     <!-- LIST OF CITIES -->
-<ul class="collection">
+<ul id="recentSearchRow" class="table.responsive-table thead tr">RECENT SEARCHES
   <li class="collection-item avatar">
-    <ul><span class="title cityList"></span></ul>
+    <ul id="buttonList"><span class="title cityList"></span></ul>
   </li>
 </ul>
     
     <!-- CARD FOR SEARCHING -->
     <div id='currentWeatherCard' class="row right-align hide">
-      <div class="col s12 m8">
-        <div class="card blue-grey darken-1">
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1 todayForecastCard">
+          <img id="iconImg" class="card.small left">
           <div id="icon"></div>
           <div class="card-content white-text">
             <span id="cityTitleCard" class="card-title"></span>
@@ -61,34 +62,38 @@
         </div>
       </div>
     </div>
-    <div class='row'>
-      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+    <div class='row col.m2 forecastRow'>
+      <div class="col s2 forecastCard card blue-grey darken-1 card-content white-text hide">
         <span id="cityTitleCard" class="card-title"></span>
         <p id="date1"></p>
+        <img id="iconImg1">
         <p id="temp1"></p>
         <p id ="humidity1"></p>
         <p id="windSpeed1"></p>
         <p id="uvi1"></p>
       </div>
-      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+      <div class="col s2 forecastCard card blue-grey darken-1 card-content white-text hide">
         <span id="cityTitleCard" class="card-title"></span>
         <p id="date2"></p>
+        <img id="iconImg2">
         <p id="temp2"></p>
         <p id ="humidity2"></p>
         <p id="windSpeed2"></p>
         <p id="uvi2"></p>
       </div>
-      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+      <div class="col s2 forecastCard card blue-grey darken-1 card-content white-text hide">
         <span id="cityTitleCard" class="card-title"></span>
         <p id="date3"></p>
+        <img id="iconImg3">
         <p id="temp3"></p>
         <p id ="humidity3"></p>
         <p id="windSpeed3"></p>
         <p id="uvi3"></p>
       </div>
-      <div class="col s2 card blue-grey darken-1 card-content white-text hide">
+      <div class="col s2 forecastCard card blue-grey darken-1 card-content white-text hide">
         <span id="cityTitleCard" class="card-title"></span>
         <p id="date4"></p>
+        <img id="iconImg4">
         <p id="temp4"></p>
         <p id ="humidity4"></p>
         <p id="windSpeed4"></p>

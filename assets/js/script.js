@@ -8,7 +8,7 @@ var recentSearches = [];
 
 // redirectUrl = 
 
-//RUNS THE WHOLE SHABANG
+
 function getCityWeather() {
     var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + apiKey
     
@@ -23,11 +23,11 @@ function getCityWeather() {
                 console.log("hello this is the data function");
                 console.log("this is current weather", data);
 
-                var icon = data.weather[0].icon;
-                var iconImg = $('<img>');
-                $('#icon').addClass("card.small left")
-                iconImg.attr('src', 'https://openweathermap.org/img/wn/' + icon + '@4x.png')
-                $('#icon').append(iconImg)
+                var iconData = data.weather[0].icon;
+                //var iconImg = $('<img>');
+                $('#iconImg').addClass("card.small left")
+                $('#iconImg').attr('src', 'https://openweathermap.org/img/wn/' + iconData + '@4x.png')
+                //$('#icon').append(iconImg)
 
                 var temp = data.main.temp
                 $('#temp').text(temp + " degrees")
@@ -46,7 +46,7 @@ function getCityWeather() {
             });
         };
 function getForecastUvi (lat,lon) {
-    var urlOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&appid=' + apiKey
+    var urlOneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + apiKey
 
     fetch(urlOneCall)
         .then(function (response) {
@@ -61,12 +61,16 @@ function getForecastUvi (lat,lon) {
                 console.log("this is the forecast ", data.daily[i])
                 var formatDate = moment.unix(data.daily[i].dt).format('dddd, MM/DD/YYYY')
                 $('#date' + i).text(formatDate);
-                var uviForecast = data.daily[i].uvi;
-                $('#uvi' + i).text(uviForecast + " UVI index");
+                var iconImgForecast = data.daily[i].weather[0].icon
+                $('#iconImg' + i).attr('src', 'https://openweathermap.org/img/wn/' + iconImgForecast + '@2x.png')
+                var tempForecast = data.daily[i].temp.day;
+                $('#temp' +i).text(tempForecast + ' degrees');
                 var humidityForecast = data.daily[i].humidity
                 $('#humidity' + i).text(humidityForecast + "% humidity")
                 var windSpeedForecast = data.daily[i].wind_speed;
                 $('#windSpeed' + i).text(windSpeedForecast + " Wind Speed")
+                var uviForecast = data.daily[i].uvi;
+                $('#uvi' + i).text(uviForecast + " UVI index");
             //var forecast = [];
             }
         })
@@ -81,19 +85,20 @@ function cityListPopulate () {
     var cityListButtons = $('<button>');
     $('#cityTitleCard').text(cityName);
     if (recentSearches.indexOf(cityName) === -1) {
-    cityListButtons.addClass('title')
+    cityListButtons.addClass('title btn-large')
     cityListButtons.text(cityName);
     listItem.append(cityListButtons);
-    $("ul").append(listItem);
+    $("#buttonList").append(listItem);
     recentSearches.push(cityName);
     }
     
    // $("#autocomplete-input").val("");
 }
 
+//loads the whole page
 $('#city-form').submit(function (event) {
     $('#currentWeatherCard').removeClass('hide');
-    $('.card').removeClass('hide');
+    $('.forecastCard').removeClass('hide');
     event.preventDefault();
     console.log('hello this is the submit button function');
     cityListPopulate();

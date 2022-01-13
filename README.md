@@ -7,9 +7,15 @@
 -make sure to read API docs
 -make sure to use the query parameters that are colored orange in Docs
 
-##
+## 
 - talk about converting to unix code
 - talk about indexOf feature
 - talk about push feature
 - talk about appending classes with images
 - talk about referencing the api correctly
+
+## icon problems
+after succesfully getting the icon to display, i ran into a problem of appending the current icon for weather.  On one particular commit on 4:57 1/12 I had the icons repeateadly get added to the current card for weather.  I assumed this must of been for appending the image to the card each time the button was clicked.
+
+## list of Cities
+I used the method `indexOf` to keep cities from being repeated in the list of current searches.

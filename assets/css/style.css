@@ -1,3 +1,16 @@
 h1 {
     font-size: 300%;
 }
+.forecastRow {
+    margin-left: 13px;
+}
+.forecastCard {
+    margin-right: 2px;
+    border-radius: 9px;
+}
+.todayForecastCard {
+    border-radius: 9px;
+}
+#recentSearchRow {
+    margin-left: 13px;
+}
