@@ -6,7 +6,37 @@ var longitude = '';
 var recentSearches = [];
 //var requestUrl = "api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=79ae4c44176953beec1155138bc60d35";
 
-// redirectUrl = 
+function getRecentSearches () {
+
+    var storedRecentSearches = JSON.parse(localStorage.getItem("recent-Search"))
+    console.log(storedRecentSearches);
+
+    for (i=0; i<storedRecentSearches.length; i++) {
+        
+        console.log(storedRecentSearches[i])
+        if (recentSearches.indexOf(cityName) === -1) {
+
+            var listItem = $('<li>')
+            var cityListButtons = $('<button>');
+            cityListButtons.addClass('title btn-large')
+            cityListButtons.text(storedRecentSearches[i]);
+            cityListButtons.click(function() {
+                console.log(this, "is what i clicked")
+                console.log($(this).text())
+                cityName = $(this).text()
+                cityListPopulate();
+                getCityWeather();
+                
+            })
+            listItem.append(cityListButtons);
+            $("#buttonList").append(listItem);
+            recentSearches.push(storedRecentSearches[i]);
+            }
+        
+    }
+    $('#currentWeatherCard').removeClass('hide');
+    $('.forecastCard').removeClass('hide');
+} 
 
 
 function getCityWeather() {
@@ -54,8 +84,22 @@ function getForecastUvi (lat,lon) {
         })
         .then(function (data) {
             console.log("this is the oneCall Api ", data)
-            var uvi = data.current.uvi
+            var uvi = data.daily[0].uvi
+            if (uvi <3) {
+                $('#uvi').addClass("green")
+            } else if (uvi >=3 && uvi < 6)
+            {
+                $('#uvi').addClass("yellow");
+            }
+            else if (uvi >=6 && uvi < 8) {
+                    $('#uvi').addClass("orange");
+            }
+            else if (uvi >=8 && uvi < 11) {
+                $('#uvi').addClass("red");
+            }   
+            else {$('#uvi').addClass("purple");}
             $('#uvi').text(uvi + " UVI index")
+
             
             for (i=1; i<5; i++) {
                 console.log("this is the forecast ", data.daily[i])
@@ -76,20 +120,27 @@ function getForecastUvi (lat,lon) {
         })
 }
 
-       
 function cityListPopulate () {
-    cityName = $('#autocomplete-input').val().trim();
+    
     console.log('hello this is the cityListPopulate function');
     console.log("the city name is " + cityName);
-    var listItem = $('<li>')
-    var cityListButtons = $('<button>');
     $('#cityTitleCard').text(cityName);
     if (recentSearches.indexOf(cityName) === -1) {
+    var listItem = $('<li>')
+    var cityListButtons = $('<button>');
     cityListButtons.addClass('title btn-large')
     cityListButtons.text(cityName);
+    cityListButtons.click(function() {
+        console.log(this, "is what i clicked")
+        console.log($(this).text())
+        cityName = $(this).text()
+        cityListPopulate();
+        getCityWeather();
+    })
     listItem.append(cityListButtons);
     $("#buttonList").append(listItem);
     recentSearches.push(cityName);
+    localStorage.setItem("recent-Search", JSON.stringify(recentSearches))
     }
     
    // $("#autocomplete-input").val("");
@@ -100,10 +151,14 @@ $('#city-form').submit(function (event) {
     $('#currentWeatherCard').removeClass('hide');
     $('.forecastCard').removeClass('hide');
     event.preventDefault();
+    cityName = $('#autocomplete-input').val().trim();
     console.log('hello this is the submit button function');
     cityListPopulate();
     getCityWeather();
+
 })
+
+getRecentSearches ();
 
         // $('#searchBtn').click(function() {
         //     
