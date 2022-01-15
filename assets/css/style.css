@@ -10,7 +10,11 @@ h1 {
 }
 .todayForecastCard {
     border-radius: 9px;
+    padding-bottom:15px
 }
 #recentSearchRow {
     margin-left: 13px;
+}
+.uviBackground {
+    width: 100px;
 }

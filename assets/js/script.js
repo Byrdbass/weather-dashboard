@@ -7,7 +7,7 @@ var recentSearches = [];
 //var requestUrl = "api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=79ae4c44176953beec1155138bc60d35";
 
 function getRecentSearches () {
-
+    
     var storedRecentSearches = JSON.parse(localStorage.getItem("recent-Search"))
     console.log(storedRecentSearches);
 
@@ -86,13 +86,15 @@ function getForecastUvi (lat,lon) {
             console.log("this is the oneCall Api ", data)
             var uvi = data.daily[0].uvi
             if (uvi <3) {
+                $('#uvi').removeClass("yellow black-text");
                 $('#uvi').addClass("green")
             } else if (uvi >=3 && uvi < 6)
             {
-                $('#uvi').addClass("yellow");
+                $('#uvi').addClass("yellow black-text");
             }
             else if (uvi >=6 && uvi < 8) {
-                    $('#uvi').addClass("orange");
+                $('#uvi').removeClass("yellow black-text");
+                $('#uvi').addClass("orange black-text");
             }
             else if (uvi >=8 && uvi < 11) {
                 $('#uvi').addClass("red");
@@ -115,6 +117,22 @@ function getForecastUvi (lat,lon) {
                 $('#windSpeed' + i).text(windSpeedForecast + " Wind Speed")
                 var uviForecast = data.daily[i].uvi;
                 $('#uvi' + i).text(uviForecast + " UVI index");
+                if (uvi <3) {
+                    $('#uvi' + i).removeClass("yellow black-text");
+                    $('#uvi'  + i).addClass("green")
+                } else if (uvi >=3 && uvi < 6)
+                {
+                    $('#uvi' + i).addClass("yellow black-text");
+                }
+                else if (uvi >=6 && uvi < 8) {
+                    $('#uvi' + i).removeClass("yellow black-text");
+                    $('#uvi' + i).addClass("orange black-text");
+                }
+                else if (uvi >=8 && uvi < 11) {
+                    $('#uvi' + i).addClass("red");
+                }   
+                else {$('#uvi').addClass("purple");}
+                $('#uvi' + i).text(uvi + " UVI index")
             //var forecast = [];
             }
         })
