@@ -1,4 +1,5 @@
 # Weather-Dashboard
+This weather app was made using a CSS library called Materialize, and used the API from openweather.org and script from Moment.js.  This Weather app had several functions that I used many console logs to test it's functionality.  
 
 ## What to remember about this project
 -Need the API key
@@ -7,8 +8,9 @@
 -make sure to read API docs
 -make sure to use the query parameters that are colored orange in Docs
 
-## 
-- talk about converting to unix code
+## New concepts I learned
+- When pulling the date of for the Weather displayed for the current day.  I was able to find the Unix time format given to me by OpenWeather.org and used the formatting method from Moment.js.
+- When trying to limit the amount
 - talk about indexOf feature
 - talk about push feature
 - talk about appending classes with images
