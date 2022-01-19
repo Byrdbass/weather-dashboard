@@ -21,3 +21,7 @@ after successfully getting the icon to display, i ran into a problem of appendin
 ## Links
 [GitHub Repository for the Weather Dashboard](https://github.com/Byrdbass/weather-dashboard)
 [GitHub deployment of web app]()
+
+## Screenshot of Application
+![screenshot of weather-dashboard](assets\images\Weather-Dashboard-ScreenShot.gif)
+
